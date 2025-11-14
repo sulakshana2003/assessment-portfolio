@@ -3,6 +3,14 @@ import Chapter1Section from "./pages/chapter/Chapter1.jsx";
 import Chapter2Section from "./pages/chapter/Chapter2.jsx";
 import Chapter3Section from "./pages/chapter/Chapter3.jsx";
 import Chapter4Section from "./pages/chapter/Chapter4.jsx";
+import Chapter5Section from "./pages/chapter/Chapter5.jsx";
+import Chapter6Section from "./pages/chapter/Chapter6.jsx";
+import Chapter7Section from "./pages/chapter/Chapter7.jsx";
+import Chapter8Section from "./pages/chapter/Chapter8.jsx";
+import Chapter9Section from "./pages/chapter/Chapter9.jsx";
+import Chapter10Section from "./pages/chapter/Chapter10.jsx";
+
+
 
 
 
@@ -177,7 +185,81 @@ export default function AssessmentPortfolio() {
       </div>
       );
     }
+    if (c.id === "ch5") {
+      return (
+        <div
+    key="ch5"
+    id="ch5"
+    ref={(el) => (sectionRefs.current["ch5"] = el)}
+    className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+  >
+    <Chapter5Section />
+  </div>
+      );
+    }
+    if (c.id === "ch6") {
+      return (
+        <div
+    key="ch6"
+    id="ch6"
+    ref={(el) => (sectionRefs.current["ch6"] = el)}
+    className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+  >
+    <Chapter6Section />
+  </div>
+      );
+    }
+    if (c.id === "ch7") {
+      return (
+        <div
+    key="ch7"
+    id="ch7"
+    ref={(el) => (sectionRefs.current["ch7"] = el)}
+    className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+  >
+    <Chapter7Section />
+  </div>
+      );
+    }
+    if (c.id === "ch8") {
+  return (
+    <div
+      key="ch8"
+      id="ch8"
+      ref={(el) => (sectionRefs.current["ch8"] = el)}
+      className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+    >
+      <Chapter8Section />
+    </div>
+  );
+}
 
+if (c.id === "ch9") {
+  return (
+    <div
+      key="ch9"
+      id="ch9"
+      ref={(el) => (sectionRefs.current["ch9"] = el)}
+      className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+    >
+      <Chapter9Section />
+    </div>
+  );
+}
+    if (c.id === "ch10") {
+      return (
+        <div
+          key="ch10"
+          id="ch10"
+          ref={(el) => (sectionRefs.current["ch10"] = el)}
+          className="scroll-mt-24 mb-6"
+        >
+          <Chapter10Section />
+        </div>
+      );
+    }
+
+    
     // default article for other chapters
             return (
               <article
