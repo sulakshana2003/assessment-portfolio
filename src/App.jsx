@@ -1,4 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import Chapter1Section from "./pages/chapter/Chapter1.jsx";
+import Chapter2Section from "./pages/chapter/Chapter2.jsx";
+import Chapter3Section from "./pages/chapter/Chapter3.jsx";
+import Chapter4Section from "./pages/chapter/Chapter4.jsx";
+
+
 
 // Tailwind v2/v3 compatible version (no arbitrary values).
 export default function AssessmentPortfolio() {
@@ -117,37 +123,91 @@ export default function AssessmentPortfolio() {
 
         {/* Content */}
         <section className="md:col-span-9">
-          {chapters.map((c, idx) => (
-            <article
-              key={c.id}
-              id={c.id}
-              ref={(el) => (sectionRefs.current[c.id] = el)}
-              className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between md:space-x-6 space-y-4 md:space-y-0">
-                <div className="md:flex-1">
-                  <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2">
-                    {idx === 0 ? "Introduction to Professional Skills" : c.title}
-                  </h2>
-                  <p className="text-gray-600">
-                    {idx === 0
-                      ? "Start here — layout matches your screenshot: big title, left vertical chapters, and a right-side image on wide screens."
-                      : "Chapter overview"}
-                  </p>
-                </div>
-                <div className="md:w-5/12 md:self-start">
-                  <div className="w-full h-56 md:h-64 rounded-xl bg-gray-100 border border-gray-200 overflow-hidden grid place-items-center text-gray-500 text-sm">
-                    Add an image here
+  {chapters.map((c, idx) => {
+    // give a ref target for scroll-spy
+    const setRef = (el) => (sectionRefs.current[c.id] = el);
+
+    if (c.id === "ch1") {
+      // Use your custom Chapter 01 component
+      return (
+        <article
+          key={c.id}
+          id={c.id}
+          ref={setRef}
+          className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+        >
+          <Chapter1Section />
+        </article>
+      );
+    }
+    if (c.id === "ch2"){
+      return (
+      <div
+        key="ch2"
+        id="ch2"
+        ref={(el) => (sectionRefs.current["ch2"] = el)}
+        className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+      >
+        <Chapter2Section />
+      </div>
+    ); 
+  }
+    if (c.id === "ch3") {
+      return (
+        <div
+      key="ch3"
+      id="ch3"
+      ref={(el) => (sectionRefs.current["ch3"] = el)}
+      className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+    >
+      <Chapter3Section />
+    </div>
+      );
+    }
+
+    if (c.id === "ch4") {
+      return (
+            <div
+        key="ch4"
+        id="ch4"
+        ref={(el) => (sectionRefs.current["ch4"] = el)}
+        className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+      >
+        <Chapter4Section />
+      </div>
+      );
+    }
+
+    // default article for other chapters
+            return (
+              <article
+                key={c.id}
+                id={c.id}
+                ref={setRef}
+                className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+              >
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between md:space-x-6 space-y-4 md:space-y-0">
+                  <div className="md:flex-1">
+                    <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2">
+                      {c.title}
+                    </h2>
+                    <p className="text-gray-600">Chapter overview</p>
+                  </div>
+                  <div className="md:w-5/12 md:self-start">
+                    <div className="w-full h-56 md:h-64 rounded-xl bg-gray-100 border border-gray-200 overflow-hidden grid place-items-center text-gray-500 text-sm">
+                      Add an image here
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="mt-6 leading-7 text-gray-700">
-                <p className="whitespace-pre-line">{c.body}</p>
-              </div>
-            </article>
-          ))}
+                <div className="mt-6 leading-7 text-gray-700">
+                  <p className="whitespace-pre-line">{c.body}</p>
+                </div>
+              </article>
+            );
+          })}
         </section>
+
       </main>
 
       <ReadingProgress />
