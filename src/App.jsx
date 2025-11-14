@@ -9,6 +9,7 @@ import Chapter7Section from "./pages/chapter/Chapter7.jsx";
 import Chapter8Section from "./pages/chapter/Chapter8.jsx";
 import Chapter9Section from "./pages/chapter/Chapter9.jsx";
 import Chapter10Section from "./pages/chapter/Chapter10.jsx";
+import Chapter11Section from "./pages/chapter/Chapter11.jsx";
 
 
 
@@ -252,13 +253,24 @@ if (c.id === "ch9") {
           key="ch10"
           id="ch10"
           ref={(el) => (sectionRefs.current["ch10"] = el)}
-          className="scroll-mt-24 mb-6"
+          className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
         >
           <Chapter10Section />
         </div>
       );
     }
-
+    if (c.id === "ch11") {
+  return (
+    <div
+      key="ch11"
+      id="ch11"
+      ref={(el) => (sectionRefs.current["ch11"] = el)}
+      className="scroll-mt-24 bg-white border border-gray-200 rounded-2xl shadow p-6 md:p-8 mb-6"
+    >
+      <Chapter11Section />
+    </div>
+  );
+}
     
     // default article for other chapters
             return (
