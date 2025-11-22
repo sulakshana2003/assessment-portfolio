@@ -1,10 +1,6 @@
-// src/pages/chapter/Chapter7.jsx
-// Tailwind v2/v3 friendly. Photo gallery + simple lightbox. Uses images in your assets folder.
-
 import React, { useState } from "react";
 
 // ---- import your photos (put the files in src/assets/) ----
-// rename paths if your folder differs
 import F1 from "../../assets/F1.jpeg";
 import F2 from "../../assets/F2.jpeg";
 import F3 from "../../assets/F3.jpeg";
@@ -14,6 +10,9 @@ import F6 from "../../assets/F6.jpeg";
 import F7 from "../../assets/F7.jpeg";
 import F10 from "../../assets/F10.jpeg";
 import F11 from "../../assets/F11.jpeg";
+
+// Importing the topic image for the section (round image)
+import FoodFestImage from "../../assets/ch7/food_fest.jpg"; // Adjust the path as necessary
 
 const photos = [
   { src: F1, alt: "Ralahami Kade stall front" },
@@ -61,89 +60,110 @@ export default function Chapter7Section() {
   const next = () => setIndex((i) => (i + 1) % photos.length);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
-      {/* Header */}
-      <header className="mb-6 md:mb-8">
-        <p className="text-xs uppercase tracking-wide text-slate-500">Chapter 07</p>
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Food Festival – Ralahami Kadé</h1>
-        <p className="mt-2 text-slate-600">Our team planned and ran a food stall featuring hot dogs, sandwiches and drinks. We practiced event planning, teamwork, money handling, and customer service under time pressure.</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {["Event planning","Menu & pricing","Roles","Crowd handling","Sales","Reflection"].map((c) => (
-            <Chip key={c} label={c} />
-          ))}
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-emerald-50 px-3 py-8 md:py-10">
+      <div className="relative max-w-5xl mx-auto">
+        {/* Decorative 3D blobs behind card */}
+        <div className="pointer-events-none absolute -top-10 -left-6 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-200 to-sky-200 opacity-60 blur-sm" />
+        <div className="pointer-events-none absolute -bottom-12 -right-10 h-40 w-40 rounded-full bg-gradient-to-tr from-indigo-200 to-fuchsia-200 opacity-60 blur-sm" />
 
-      {/* Key details */}
-      <div className="grid md:grid-cols-2 gap-4 mb-6">
-        <SectionCard tone="cyan" title="Objectives">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Plan and operate a stall as a team.</li>
-            <li>Practice budgeting, pricing, and cash handling.</li>
-            <li>Serve customers quickly and politely; keep hygiene.</li>
-          </ul>
-        </SectionCard>
-        <SectionCard tone="emerald" title="Roles & tasks">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Lead & cash: set prices, track sales, manage change.</li>
-            <li>Food prep: sauces, buns, assembly, packaging.</li>
-            <li>Front desk: greeting, taking orders, flow control.</li>
-            <li>Logistics: stock, ice, cleaning, photos.</li>
-          </ul>
-        </SectionCard>
+        {/* Main content card */}
+        <div className="relative bg-white bg-opacity-95 rounded-3xl shadow-2xl px-4 py-8 md:px-8 md:py-10">
+          {/* Header */}
+          <header className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <p className="text-xs uppercase tracking-wide text-slate-500">Chapter 07</p>
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Food Festival – Ralahami Kadé</h1>
+              <p className="mt-2 text-slate-600">Our team planned and ran a food stall featuring hot dogs, sandwiches, and drinks. We practiced event planning, teamwork, money handling, and customer service under time pressure.</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {["Event planning","Menu & pricing","Roles","Crowd handling","Sales","Reflection"].map((c) => (
+                  <Chip key={c} label={c} />
+                ))}
+              </div>
+            </div>
+
+            {/* Round Topic Image */}
+            <div className="flex justify-center md:justify-end">
+              <div className="relative h-28 w-28 md:h-36 md:w-36 transform hover:-translate-y-1 hover:rotate-1 transition duration-300">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-200 via-sky-200 to-cyan-300 shadow-lg" />
+                <img
+                  src={FoodFestImage} // Imported food fest image
+                  alt="Food Festival Image"
+                  className="relative h-full w-full rounded-full object-cover border-4 border-white shadow-xl"
+                />
+              </div>
+            </div>
+          </header>
+
+          {/* Key details */}
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <SectionCard tone="cyan" title="Objectives">
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Plan and operate a stall as a team.</li>
+                <li>Practice budgeting, pricing, and cash handling.</li>
+                <li>Serve customers quickly and politely; keep hygiene.</li>
+              </ul>
+            </SectionCard>
+            <SectionCard tone="emerald" title="Roles & tasks">
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Lead & cash: set prices, track sales, manage change.</li>
+                <li>Food prep: sauces, buns, assembly, packaging.</li>
+                <li>Front desk: greeting, taking orders, flow control.</li>
+                <li>Logistics: stock, ice, cleaning, photos.</li>
+              </ul>
+            </SectionCard>
+          </div>
+
+          {/* Gallery */}
+          <SectionCard tone="slate" title="Photo Gallery">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {photos.map((p, i) => (
+                <button
+                  key={i}
+                  className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100"
+                  onClick={() => openLightbox(i)}
+                  aria-label={`Open image ${i + 1}`}
+                >
+                  <img src={p.src} alt={p.alt} className="h-40 md:h-48 w-full object-cover" />
+                  <span className="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/30 text-white text-sm">Click to view</span>
+                </button>
+              ))}
+            </div>
+          </SectionCard>
+
+          {/* Simple lightbox */}
+          {open && (
+            <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4">
+              <button className="absolute top-4 right-4 text-white text-2xl" onClick={() => setOpen(false)} aria-label="Close">×</button>
+              <button className="absolute left-4 md:left-8 text-white text-2xl" onClick={prev} aria-label="Previous">‹</button>
+              <img src={photos[index].src} alt={photos[index].alt} className="max-h-[80vh] max-w-full rounded-lg" />
+              <button className="absolute right-4 md:right-8 text-white text-2xl" onClick={next} aria-label="Next">›</button>
+            </div>
+          )}
+
+          {/* Quick results */}
+          <div className="grid md:grid-cols-2 gap-4 my-6">
+            <SectionCard title="What went well" tone="emerald">
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Attractive booth branding and team energy drew a crowd.</li>
+                <li>Fast assembly line improved serving speed.</li>
+                <li>Clear roles reduced confusion during peak time.</li>
+              </ul>
+            </SectionCard>
+            <SectionCard title="What to improve next time" tone="amber">
+              <ul className="list-disc pl-5 space-y-1">
+                <li>Prepare more change and pre‑slice ingredients.</li>
+                <li>Better queue management; print menu with prices.</li>
+                <li>Track sales & stock with a small sheet/app.</li>
+              </ul>
+            </SectionCard>
+          </div>
+
+          {/* Self‑Reflection */}
+          <SectionCard tone="emerald" title="My Self‑Reflection (Chapter 07)">
+            <p>This event taught me real teamwork and customer service. I handled pressure, spoke clearly with customers, and learned to adjust prices/stock on the fly. Next time I will prepare a checklist, set clearer roles, and use a simple tracker for sales and expenses.</p>
+          </SectionCard>
+        </div>
       </div>
-
-      {/* Gallery */}
-      <SectionCard tone="slate" title="Photo Gallery">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {photos.map((p, i) => (
-            <button
-              key={i}
-              className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100"
-              onClick={() => openLightbox(i)}
-              aria-label={`Open image ${i + 1}`}
-            >
-              <img src={p.src} alt={p.alt} className="h-40 md:h-48 w-full object-cover" />
-              <span className="absolute inset-0 hidden group-hover:flex items-center justify-center bg-black/30 text-white text-sm">Click to view</span>
-            </button>
-          ))}
-        </div>
-      </SectionCard>
-
-      {/* Simple lightbox */}
-      {open && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4">
-          <button className="absolute top-4 right-4 text-white text-2xl" onClick={() => setOpen(false)} aria-label="Close">×</button>
-          <button className="absolute left-4 md:left-8 text-white text-2xl" onClick={prev} aria-label="Previous">‹</button>
-          <img src={photos[index].src} alt={photos[index].alt} className="max-h-[80vh] max-w-full rounded-lg" />
-          <button className="absolute right-4 md:right-8 text-white text-2xl" onClick={next} aria-label="Next">›</button>
-        </div>
-      )}
-
-      {/* Quick results */}
-      <div className="grid md:grid-cols-2 gap-4 my-6">
-        <SectionCard title="What went well" tone="emerald">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Attractive booth branding and team energy drew a crowd.</li>
-            <li>Fast assembly line improved serving speed.</li>
-            <li>Clear roles reduced confusion during peak time.</li>
-          </ul>
-        </SectionCard>
-        <SectionCard title="What to improve next time" tone="amber">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>Prepare more change and pre‑slice ingredients.</li>
-            <li>Better queue management; print menu with prices.</li>
-            <li>Track sales & stock with a small sheet/app.</li>
-          </ul>
-        </SectionCard>
-      </div>
-
-      {/* Self‑Reflection */}
-      <SectionCard tone="emerald" title="My Self‑Reflection (Chapter 07)">
-        <p>This event taught me real teamwork and customer service. I handled pressure, spoke clearly with customers, and learned to adjust prices/stock on the fly. Next time I will prepare a checklist, set clearer roles, and use a simple tracker for sales and expenses.</p>
-      </SectionCard>
     </div>
   );
 }
-
-// Usage: import Chapter7Section from './Chapter7.jsx' and render <Chapter7Section /> where Chapter 07 should appear.
