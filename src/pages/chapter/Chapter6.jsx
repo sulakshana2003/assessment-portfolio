@@ -1,7 +1,25 @@
 import React from "react";
 
-// Importing the topic image for the section
-import ProposalImage from "../../assets/ch6/project_proposal.jpg"; // Adjust the path as necessary
+// ---------------- IMAGE IMPORTS ----------------
+import ProposalImage from "../../assets/ch6/project_proposal.jpg";           // main round image
+import ProjectImg from "../../assets/ch6/project.jpg";                      // What is a project?
+import ProposalExplainImg from "../../assets/ch6/pp_proposal.jpg";          // What is a proposal?
+import ProposalStructureImg from "../../assets/ch6/Proposal_structure.jpg"; // Proposal structure
+import ActivityPlanImg from "../../assets/ch6/Activity_plan.jpg";           // Activity plan
+import ResourcePlanImg from "../../assets/ch6/Resource_plan.png";           // Resource plan
+import BudgetIcon from "../../assets/ch6/proposal.svg";                     // Budget totals card
+
+// ---------------- CHIP COLORS ----------------
+const chipColors = [
+  "bg-rose-50 text-rose-900 border-rose-200",
+  "bg-emerald-50 text-emerald-900 border-emerald-200",
+  "bg-cyan-50 text-cyan-900 border-cyan-200",
+  "bg-amber-50 text-amber-900 border-amber-200",
+  "bg-indigo-50 text-indigo-900 border-indigo-200",
+  "bg-lime-50 text-lime-900 border-lime-200",
+  "bg-fuchsia-50 text-fuchsia-900 border-fuchsia-200",
+  "bg-violet-50 text-violet-900 border-violet-200",
+];
 
 const chips = [
   "External vs Internal",
@@ -14,87 +32,131 @@ const chips = [
   "Lessons & Next steps",
 ];
 
-function Chip({ label }) {
+// ---------------- 3D CHIP ----------------
+function Chip({ label, index }) {
+  const color = chipColors[index % chipColors.length];
+
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium border-emerald-200 bg-emerald-50 text-emerald-900">
-      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+    <span
+      className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium border ${color}
+      shadow-[4px_4px_8px_rgba(0,0,0,0.12),-4px_-4px_8px_rgba(255,255,255,0.9)]
+      hover:shadow-[6px_6px_12px_rgba(0,0,0,0.15),-6px_-6px_12px_rgba(255,255,255,1)]
+      transition-all`}
+    >
+      <span className="h-2 w-2 rounded-full bg-current shadow-[2px_2px_4px_rgba(0,0,0,0.2),-2px_-2px_4px_rgba(255,255,255,0.9)]" />
       {label}
     </span>
   );
 }
 
-function SectionCard({ title, tone = "emerald", children }) {
-  const tones = {
-    emerald: { wrap: "border-emerald-200 bg-emerald-50/70", title: "text-emerald-900" },
-    cyan: { wrap: "border-cyan-200 bg-cyan-50/70", title: "text-cyan-900" },
-    amber: { wrap: "border-amber-200 bg-amber-50/70", title: "text-amber-900" },
-    slate: { wrap: "border-slate-200 bg-white", title: "text-slate-900" },
-    violet: { wrap: "border-violet-200 bg-violet-50/70", title: "text-violet-900" },
-  };
-  const t = tones[tone] || tones.slate;
+// ---------------- PASTEL CARD BACKGROUNDS ----------------
+const pastelCardColors = [
+  "bg-[#E3FCEC]", // mint
+  "bg-[#FEE7E7]", // rose
+  "bg-[#EAF6FF]", // sky
+  "bg-[#F5E8FF]", // lavender
+  "bg-[#FFEEDF]", // peach
+  "bg-[#FFF8D9]", // butter yellow
+  "bg-[#E7F5FF]", // powder blue
+  "bg-[#EDE8FF]", // soft lilac
+];
+
+// ---------------- SECTION CARD (NEUMORPHIC) ----------------
+function SectionCard({ title, children, index }) {
+  const bg = pastelCardColors[index % pastelCardColors.length];
+
   return (
-    <div className={`rounded-2xl border ${t.wrap} p-5 md:p-6`}>
-      <h3 className={`text-lg md:text-xl font-bold mb-3 ${t.title}`}>{title}</h3>
+    <div
+      className={`
+        my-5 p-6 rounded-3xl border border-white/60 ${bg}
+        shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_#ffffff]
+        hover:-translate-y-1 hover:shadow-[10px_10px_20px_rgba(0,0,0,0.15),-10px_-10px_20px_#ffffff]
+        transition-all duration-300
+      `}
+    >
+      <h3 className="text-lg md:text-xl font-bold mb-3 text-slate-800">{title}</h3>
       <div className="text-slate-700 leading-7 text-sm md:text-base">{children}</div>
     </div>
   );
 }
 
+// ---------------- MAIN COMPONENT ----------------
 export default function Chapter6Section() {
+  let cardIndex = 0;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-emerald-50 px-3 py-8 md:py-10">
       <div className="relative max-w-5xl mx-auto">
-        {/* Decorative 3D blobs behind card */}
-        <div className="pointer-events-none absolute -top-10 -left-6 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-200 to-sky-200 opacity-60 blur-sm" />
-        <div className="pointer-events-none absolute -bottom-12 -right-10 h-40 w-40 rounded-full bg-gradient-to-tr from-indigo-200 to-fuchsia-200 opacity-60 blur-sm" />
 
-        {/* Main content card */}
-        <div className="relative bg-white bg-opacity-95 rounded-3xl shadow-2xl px-4 py-8 md:px-8 md:py-10">
-          {/* Header */}
+        {/* Blobs */}
+        <div className="pointer-events-none absolute -top-10 -left-6 h-32 w-32 rounded-full 
+          bg-gradient-to-br from-emerald-200 to-sky-200 opacity-60 blur-sm" />
+        <div className="pointer-events-none absolute -bottom-12 -right-10 h-40 w-40 rounded-full 
+          bg-gradient-to-tr from-indigo-200 to-fuchsia-200 opacity-60 blur-sm" />
+
+        {/* Main container */}
+        <div className="relative bg-white/95 rounded-3xl shadow-2xl px-4 py-8 md:px-8 md:py-10">
+
+          {/* HEADER */}
           <header className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <p className="text-xs uppercase tracking-wide text-slate-500">Chapter 06</p>
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Project Proposal Writing & Evaluation</h1>
-              <p className="mt-2 text-slate-600">Write a clear proposal (problem → objectives → activities → budget → results) and evaluate your project after it ends.</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {chips.map((c) => (
-                  <Chip key={c} label={c} />
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
+                Project Proposal Writing & Evaluation
+              </h1>
+              <p className="mt-2 text-slate-600">
+                Write a clear proposal (problem → objectives → activities → budget → results) and evaluate your project after it ends.
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-3">
+                {chips.map((c, i) => (
+                  <Chip key={i} label={c} index={i} />
                 ))}
               </div>
             </div>
 
-            {/* Round Topic Image */}
-            <div className="flex justify-center md:justify-end">
-              <div className="relative h-28 w-28 md:h-36 md:w-36 transform hover:-translate-y-1 hover:rotate-1 transition duration-300">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-200 via-sky-200 to-cyan-300 shadow-lg" />
-                <img
-                  src={ProposalImage} // Imported proposal image
-                  alt="Proposal Image"
-                  className="relative h-full w-full rounded-full object-cover border-4 border-white shadow-xl"
-                />
-              </div>
-            </div>
+            {/* Round image */}
+            <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0 
+  rounded-full overflow-hidden 
+  shadow-[6px_6px_12px_rgba(0,0,0,0.15),-6px_-6px_12px_rgba(255,255,255,1)]">
+
+  <img
+    src={ProposalImage}
+    alt="Proposal Image"
+    className="w-full h-full object-cover rounded-full"
+  />
+</div>
+
           </header>
 
-          {/* What is a project & proposal */}
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <SectionCard tone="cyan" title="What is a project?">
-              <p>A project is a set of activities with a goal, a timeline, a team, and resources. It moves through a cycle: idea → design → finance → implement → evaluate.</p>
-            </SectionCard>
-            <SectionCard tone="emerald" title="What is a proposal?">
-              <p>The proposal is the written plan of the project. It explains the problem, your solution, who benefits, the work plan, team, budget, and how you will measure success.</p>
-            </SectionCard>
-          </div>
+          {/* WHAT IS PROJECT */}
+          <SectionCard title="What is a project?" index={cardIndex++}>
+            <img src={ProjectImg} className="rounded-xl mb-3 w-full" />
+            <p>
+              A project is a set of activities with a goal, a timeline, a team, and resources.
+              It moves through a cycle: idea → design → finance → implement → evaluate.
+            </p>
+          </SectionCard>
 
-          {/* Types of proposals */}
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <SectionCard tone="amber" title="External vs Internal proposals">
+          {/* WHAT IS PROPOSAL */}
+          <SectionCard title="What is a proposal?" index={cardIndex++}>
+            <img src={ProposalExplainImg} className="rounded-xl mb-3 w-full" />
+            <p>
+              The proposal is the written plan of the project. It explains the problem, your solution,
+              who benefits, the work plan, team, budget, and how you will measure success.
+            </p>
+          </SectionCard>
+
+          {/* TYPES */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="External vs Internal proposals" index={cardIndex++}>
               <ul className="list-disc pl-5 space-y-1">
                 <li><span className="font-semibold">External</span> – bids for contracts/grants. Usual parts: Executive summary, Management, Financials.</li>
                 <li><span className="font-semibold">Internal</span> – convince your organisation to accept an idea. Focus on audience, visuals, and the 4Qs: What’s the problem? Solution? Can/Should we implement?</li>
               </ul>
             </SectionCard>
-            <SectionCard tone="slate" title="Before writing (prep)">
+
+            <SectionCard title="Before writing (prep)" index={cardIndex++}>
               <ul className="list-disc pl-5 space-y-1 text-sm">
                 <li>Talk to beneficiaries; review past proposals/evaluations.</li>
                 <li>Check data; consult experts; run a quick survey/focus group.</li>
@@ -103,8 +165,9 @@ export default function Chapter6Section() {
             </SectionCard>
           </div>
 
-          {/* Proposal structure */}
-          <SectionCard tone="emerald" title="Proposal structure (simple template)">
+          {/* PROPOSAL STRUCTURE */}
+          <SectionCard title="Proposal structure (simple template)" index={cardIndex++}>
+            <img src={ProposalStructureImg} className="rounded-xl mb-3 w-full" />
             <ol className="list-decimal pl-5 space-y-1">
               <li><span className="font-semibold">Title & Abstract</span> – problem, objectives, activities, budget snapshot.</li>
               <li><span className="font-semibold">Context & Justification</span> – data and why it matters.</li>
@@ -118,9 +181,11 @@ export default function Chapter6Section() {
             </ol>
           </SectionCard>
 
-          {/* Activity & Resource plan */}
-          <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard tone="cyan" title="Activity plan (mini table)">
+          {/* ACTIVITY & RESOURCE PLAN */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="Activity plan (mini table)" index={cardIndex++}>
+              <img src={ActivityPlanImg} className="rounded-xl mb-3 w-full" />
+
               <div className="overflow-x-auto">
                 <table className="w-full text-left border border-slate-200 rounded-lg text-sm">
                   <thead className="bg-slate-50">
@@ -139,9 +204,13 @@ export default function Chapter6Section() {
                   </tbody>
                 </table>
               </div>
+
               <p className="text-xs mt-2">Tip: A Gantt chart can show overlaps and dependencies.</p>
             </SectionCard>
-            <SectionCard tone="amber" title="Resource plan (cost sketch)">
+
+            <SectionCard title="Resource plan (cost sketch)" index={cardIndex++}>
+              <img src={ResourcePlanImg} className="rounded-xl mb-3 w-full" />
+
               <div className="overflow-x-auto">
                 <table className="w-full text-left border border-slate-200 rounded-lg text-sm">
                   <thead className="bg-slate-50">
@@ -160,29 +229,31 @@ export default function Chapter6Section() {
                   </tbody>
                 </table>
               </div>
+
               <p className="text-xs mt-2">Include both direct costs (linked to activities) and operational costs (overheads).</p>
             </SectionCard>
           </div>
 
-          {/* Indicators & M&E */}
-          <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard title="Indicators (make them specific)" tone="slate">
+          {/* INDICATORS + M&E */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="Indicators (make them specific)" index={cardIndex++}>
               <ul className="list-disc pl-5 space-y-1 text-sm">
                 <li>Quality (what changes), Target group (who), Place (where), Quantity (how much), Time (by when).</li>
                 <li>Example: “Ticket sales reach 500 by 18 Oct; satisfaction score ≥ 4/5.”</li>
               </ul>
             </SectionCard>
-            <SectionCard title="Monitoring & reporting" tone="emerald">
+
+            <SectionCard title="Monitoring & reporting" index={cardIndex++}>
               <ul className="list-disc pl-5 space-y-1 text-sm">
                 <li>Track progress vs. timeline and budget monthly.</li>
                 <li>Collect data: counts, surveys, photos, receipts.</li>
-                <li>Report schedule: mid‑term review, final report, annexes.</li>
+                <li>Report schedule: mid-term review, final report, annexes.</li>
               </ul>
             </SectionCard>
           </div>
 
-          {/* Evaluation report (after the event) */}
-          <SectionCard tone="cyan" title="Evaluation report (Food‑fest style)">
+          {/* EVALUATION REPORT */}
+          <SectionCard title="Evaluation report (Food-fest style)" index={cardIndex++}>
             <ol className="list-decimal pl-5 space-y-1">
               <li><span className="font-semibold">Executive summary</span> – objectives, results, key takeaways.</li>
               <li><span className="font-semibold">Objectives & goals</span> – what you aimed to achieve.</li>
@@ -195,12 +266,12 @@ export default function Chapter6Section() {
             </ol>
           </SectionCard>
 
-          {/* Mini templates */}
-          <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard title="One‑page proposal (mini)" tone="slate">
+          {/* MINI TEMPLATES */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="One-page proposal (mini)" index={cardIndex++}>
               <p className="mb-2 text-sm">Copy this structure for small projects:</p>
               <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>Title & 3‑line abstract</li>
+                <li>Title & 3-line abstract</li>
                 <li>Problem & target group</li>
                 <li>Objectives (2–3, measurable)</li>
                 <li>Activities & timeline (table)</li>
@@ -208,7 +279,10 @@ export default function Chapter6Section() {
                 <li>Indicators & risks</li>
               </ul>
             </SectionCard>
-            <SectionCard title="Budget totals (quick)" tone="amber">
+
+            {/* BUDGET TOTALS WITH SVG */}
+            <SectionCard title="Budget totals (quick)" index={cardIndex++}>
+              <img src={BudgetIcon} className="rounded-xl mb-3 w-1/2 mx-auto" />
               <ul className="list-disc pl-5 space-y-1 text-sm">
                 <li>Total expenses: ______</li>
                 <li>Total revenue/income: ______</li>
@@ -217,10 +291,16 @@ export default function Chapter6Section() {
             </SectionCard>
           </div>
 
-          {/* Self‑Reflection */}
-          <SectionCard tone="emerald" title="My Self‑Reflection (Chapter 06)">
-            <p>I learned to connect problem → objectives → activities → budget, and to measure results with clear indicators. For the next project, I will write a one‑page proposal first, build an activity/resource plan, and keep all receipts and survey data for a strong evaluation report. I will compare estimated vs actual budget and list 3 lessons learned with actions for improvement.</p>
+          {/* REFLECTION */}
+          <SectionCard title="My Self-Reflection (Chapter 06)" index={cardIndex++}>
+            <p>
+              I learned to connect problem → objectives → activities → budget, and to measure results with clear indicators.
+              For the next project, I will write a one-page proposal first, build an activity/resource plan,
+              and keep all receipts and survey data for a strong evaluation report.
+              I will compare estimated vs actual budget and list 3 lessons learned with actions for improvement.
+            </p>
           </SectionCard>
+
         </div>
       </div>
     </div>

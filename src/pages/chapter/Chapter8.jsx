@@ -1,30 +1,37 @@
 import React from "react";
 
 // Importing the topic image for the chapter
-import EIImage from "../../assets/ch8/emotional_intelligence.jpg"; // Adjust the path as necessary
+import EIImage from "../../assets/ch8/emotional_intelligence.jpg";
 
-// Chips
+// NEW images added
+import EmotionsImg from "../../assets/ch8/emotions.jpg";
+import EmotionalBrainImg from "../../assets/ch8/emotional_brain.jpg";
+import EQvsIQImg from "../../assets/ch8/EQ_vs_IQ.jpg";
+
+// Chips with unique pastel colors
 const chips = [
-  "Emotions",
-  "Brain & EQ vs IQ",
-  "Hard-wired vs learned",
-  "Understanding emotions",
-  "Managing emotions",
-  "Health & decisions",
-  "Self-reflection",
+  { label: "Emotions", wrap: "border-emerald-200 bg-emerald-50 text-emerald-900", dot: "bg-emerald-500" },
+  { label: "Brain & EQ vs IQ", wrap: "border-cyan-200 bg-cyan-50 text-cyan-900", dot: "bg-cyan-500" },
+  { label: "Hard-wired vs learned", wrap: "border-amber-200 bg-amber-50 text-amber-900", dot: "bg-amber-500" },
+  { label: "Understanding emotions", wrap: "border-rose-200 bg-rose-50 text-rose-900", dot: "bg-rose-500" },
+  { label: "Managing emotions", wrap: "border-violet-200 bg-violet-50 text-violet-900", dot: "bg-violet-500" },
+  { label: "Health & decisions", wrap: "border-indigo-200 bg-indigo-50 text-indigo-900", dot: "bg-indigo-500" },
+  { label: "Self-reflection", wrap: "border-teal-200 bg-teal-50 text-teal-900", dot: "bg-teal-500" },
 ];
 
-// Chip Component for individual labels
-function Chip({ label }) {
+// Chip component (updated to use unique colors)
+function Chip({ label, wrap, dot }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium border-emerald-200 bg-emerald-50 text-emerald-900">
-      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+    <span
+      className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium ${wrap}`}
+    >
+      <span className={`h-2 w-2 rounded-full ${dot}`} />
       {label}
     </span>
   );
 }
 
-// SectionCard component for content blocks
+// SectionCard component (Hover effect added)
 function SectionCard({ title, tone = "emerald", children }) {
   const tones = {
     emerald: { wrap: "border-emerald-200 bg-emerald-50", title: "text-emerald-900" },
@@ -36,7 +43,9 @@ function SectionCard({ title, tone = "emerald", children }) {
   const t = tones[tone] || tones.slate;
 
   return (
-    <div className={`rounded-2xl border ${t.wrap} p-5 md:p-6`}>
+    <div
+      className={`rounded-2xl border ${t.wrap} p-5 md:p-6 transition duration-300 transform hover:shadow-xl hover:-translate-y-1 hover:scale-[1.01]`}
+    >
       <h3 className={`text-lg md:text-xl font-bold mb-3 ${t.title}`}>{title}</h3>
       <div className="text-slate-700 leading-7 text-sm md:text-base">{children}</div>
     </div>
@@ -47,12 +56,13 @@ export default function Chapter8Section() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-emerald-50 px-3 py-8 md:py-10">
       <div className="relative max-w-5xl mx-auto">
-        {/* Decorative 3D blobs behind card */}
+        {/* Decorative 3D blobs */}
         <div className="pointer-events-none absolute -top-10 -left-6 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-200 to-sky-200 opacity-60 blur-sm" />
         <div className="pointer-events-none absolute -bottom-12 -right-10 h-40 w-40 rounded-full bg-gradient-to-tr from-indigo-200 to-fuchsia-200 opacity-60 blur-sm" />
 
         {/* Main content card */}
         <div className="relative bg-white bg-opacity-95 rounded-3xl shadow-2xl px-4 py-8 md:px-8 md:py-10">
+
           {/* Header */}
           <header className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
@@ -64,9 +74,11 @@ export default function Chapter8Section() {
                 This lesson explained what emotions are, how the brain handles them, and how emotional
                 intelligence helps us in study, work and daily life.
               </p>
+
+              {/* Updated chips */}
               <div className="mt-4 flex flex-wrap gap-2">
                 {chips.map((c) => (
-                  <Chip key={c} label={c} />
+                  <Chip key={c.label} label={c.label} wrap={c.wrap} dot={c.dot} />
                 ))}
               </div>
             </div>
@@ -76,7 +88,7 @@ export default function Chapter8Section() {
               <div className="relative h-28 w-28 md:h-36 md:w-36 transform hover:-translate-y-1 hover:rotate-1 transition duration-300">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-200 via-sky-200 to-cyan-300 shadow-lg" />
                 <img
-                  src={EIImage} // Using the imported EIImage
+                  src={EIImage}
                   alt="Emotional Intelligence Image"
                   className="relative h-full w-full rounded-full object-cover border-4 border-white shadow-xl"
                 />
@@ -86,188 +98,229 @@ export default function Chapter8Section() {
 
           {/* Emotions basics */}
           <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <SectionCard tone="cyan" title="What are emotions?">
-              <p className="mb-2">
-                An emotion is a complex psychological state. It includes how we feel, what happens in
-                our body and how we behave.
-              </p>
-              <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>
-                  <span className="font-semibold">Feeling / subjective experience</span> – the inside
-                  feeling (sad, happy, angry, afraid).
-                </li>
-                <li>
-                  <span className="font-semibold">Physiological response</span> – body reactions such as
-                  heartbeat, sweating, tight muscles.
-                </li>
-                <li>
-                  <span className="font-semibold">Behavioural / social response</span> – facial
-                  expressions, voice, posture, actions.
-                </li>
-              </ul>
-            </SectionCard>
+            <div className="mb-6">
+              <SectionCard tone="cyan" title="What are emotions?">
+                <img
+                  src={EmotionsImg}
+                  alt="What are emotions?"
+                  className="rounded-xl mb-4 w-full h-40 object-cover shadow-md"
+                />
 
-            <SectionCard tone="emerald" title="Hard-wired vs taught emotions">
-              <p className="mb-2 text-sm">
-                Some emotions are inborn. Others we learn from family, culture and experience.
-              </p>
-              <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>
-                  <span className="font-semibold">Hard-wired:</span> sadness, joy, disgust, anger,
-                  surprise, fear.
-                </li>
-                <li>
-                  <span className="font-semibold">Taught / social:</span> humility, forgiveness,
-                  empathy, optimism, compassion, shame, pride, gratitude.
-                </li>
-              </ul>
-            </SectionCard>
+                <p className="mb-2">
+                  An emotion is a complex psychological state. It includes how we feel, what happens in
+                  our body and how we behave.
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>
+                    <span className="font-semibold">Feeling / subjective experience</span> – the inside
+                    feeling (sad, happy, angry, afraid).
+                  </li>
+                  <li>
+                    <span className="font-semibold">Physiological response</span> – body reactions such
+                    as heartbeat, sweating, tight muscles.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Behavioural / social response</span> – facial
+                    expressions, voice, posture, actions.
+                  </li>
+                </ul>
+              </SectionCard>
+            </div>
+
+            <div className="mb-6">
+              <SectionCard tone="emerald" title="Hard-wired vs taught emotions">
+                <p className="mb-2 text-sm">
+                  Some emotions are inborn. Others we learn from family, culture and experience.
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>
+                    <span className="font-semibold">Hard-wired:</span> sadness, joy, disgust, anger,
+                    surprise, fear.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Taught / social:</span> humility, forgiveness,
+                    empathy, optimism, compassion, shame, pride, gratitude.
+                  </li>
+                </ul>
+              </SectionCard>
+            </div>
           </div>
 
           {/* Brain & EQ vs IQ */}
           <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <SectionCard tone="amber" title="The emotional brain">
-              <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>
-                  <span className="font-semibold">Limbic system & amygdala:</span> emotion centre, fast
-                  “fight or flight” reactions.
-                </li>
-                <li>
-                  <span className="font-semibold">Prefrontal cortex:</span> the “CEO” of the brain –
-                  planning, judgement, self-control.
-                </li>
-                <li>
-                  Teenagers often react more from the amygdala, so moods and behaviour can swing
-                  quickly.
-                </li>
-              </ul>
-            </SectionCard>
+            <div className="mb-6">
+              <SectionCard tone="amber" title="The emotional brain">
+                <img
+                  src={EmotionalBrainImg}
+                  alt="Emotional Brain"
+                  className="rounded-xl mb-4 w-full h-40 object-cover shadow-md"
+                />
 
-            <SectionCard tone="slate" title="EQ vs IQ">
-              <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>
-                  <span className="font-semibold">IQ</span> – thinking skills, logic, problem solving.
-                  Helps us learn content.
-                </li>
-                <li>
-                  <span className="font-semibold">EQ / EI</span> – ability to recognise and manage
-                  emotions in ourselves and others to reach good outcomes.
-                </li>
-                <li>IQ helps us enter a field; EI helps us grow, lead and work with people.</li>
-                <li>EI can be improved through practice at any age.</li>
-              </ul>
-            </SectionCard>
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>
+                    <span className="font-semibold">Limbic system & amygdala:</span> emotion centre,
+                    fast “fight or flight” reactions.
+                  </li>
+                  <li>
+                    <span className="font-semibold">Prefrontal cortex:</span> the “CEO” of the brain –
+                    planning, judgement, self-control.
+                  </li>
+                  <li>
+                    Teenagers often react more from the amygdala, so moods and behaviour can swing
+                    quickly.
+                  </li>
+                </ul>
+              </SectionCard>
+            </div>
+
+            <div className="mb-6">
+              <SectionCard tone="slate" title="EQ vs IQ">
+                <img
+                  src={EQvsIQImg}
+                  alt="EQ vs IQ"
+                  className="rounded-xl mb-4 w-full h-40 object-cover shadow-md"
+                />
+
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>
+                    <span className="font-semibold">IQ</span> – thinking skills, logic, problem
+                    solving. Helps us learn content.
+                  </li>
+                  <li>
+                    <span className="font-semibold">EQ / EI</span> – ability to recognise and manage
+                    emotions in ourselves and others to reach good outcomes.
+                  </li>
+                  <li>IQ helps us enter a field; EI helps us grow, lead and work with people.</li>
+                  <li>EI can be improved through practice at any age.</li>
+                </ul>
+              </SectionCard>
+            </div>
           </div>
 
           {/* EI abilities */}
-          <SectionCard tone="emerald" title="Four main abilities of Emotional Intelligence">
-            <ol className="list-decimal pl-5 space-y-1 text-sm">
-              <li>
-                <span className="font-semibold">Perceiving emotions</span> – notice feelings in self
-                and others (faces, tone, body language).
-              </li>
-              <li>
-                <span className="font-semibold">Using emotions</span> – use feelings to focus, be
-                creative and solve problems (e.g. mild stress can push us to act).
-              </li>
-              <li>
-                <span className="font-semibold">Understanding emotions</span> – know what triggers
-                feelings, how they can mix and change over time.
-              </li>
-              <li>
-                <span className="font-semibold">Managing emotions</span> – stay open to feelings but
-                respond in a wise, controlled way.
-              </li>
-            </ol>
-          </SectionCard>
+          <div className="mb-6">
+            <SectionCard tone="emerald" title="Four main abilities of Emotional Intelligence">
+              <ol className="list-decimal pl-5 space-y-1 text-sm">
+                <li>
+                  <span className="font-semibold">Perceiving emotions</span> – notice feelings in self
+                  and others (faces, tone, body language).
+                </li>
+                <li>
+                  <span className="font-semibold">Using emotions</span> – use feelings to focus, be
+                  creative and solve problems (e.g. mild stress can push us to act).
+                </li>
+                <li>
+                  <span className="font-semibold">Understanding emotions</span> – know what triggers
+                  feelings, how they can mix and change over time.
+                </li>
+                <li>
+                  <span className="font-semibold">Managing emotions</span> – stay open to feelings but
+                  respond in a wise, controlled way.
+                </li>
+              </ol>
+            </SectionCard>
+          </div>
 
           {/* Emotions, health & decisions */}
           <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard tone="cyan" title="Emotions, health and others">
-              <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>
-                  Long-term negative states (chronic anger, fear, stress) can harm the heart and immune
-                  system.
-                </li>
-                <li>Positive emotions support better health and stronger relationships.</li>
-                <li>
-                  Emotions are contagious – our mood can spread to people around us (emotional
-                  contagion).
-                </li>
-              </ul>
-            </SectionCard>
+            <div className="mb-6">
+              <SectionCard tone="cyan" title="Emotions, health and others">
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>
+                    Long-term negative states (chronic anger, fear, stress) can harm the heart and
+                    immune system.
+                  </li>
+                  <li>
+                    Positive emotions support better health and stronger relationships.
+                  </li>
+                  <li>
+                    Emotions are contagious – our mood can spread to people around us (emotional
+                    contagion).
+                  </li>
+                </ul>
+              </SectionCard>
+            </div>
 
-            <SectionCard tone="amber" title="Gut feelings & decision making">
-              <p className="mb-2 text-sm">
-                The brain does a lot of work unconsciously before we “decide”. A gut feeling is often
-                the result of these quick emotional calculations.
-              </p>
-              <ul className="list-disc pl-5 space-y-1 text-sm">
-                <li>The brain quickly checks rewards, risks and past experiences.</li>
+            <div className="mb-6">
+              <SectionCard tone="amber" title="Gut feelings & decision making">
+                <p className="mb-2 text-sm">
+                  The brain does a lot of work unconsciously before we “decide”. A gut feeling is often
+                  the result of these quick emotional calculations.
+                </p>
+                <ul className="list-disc pl-5 space-y-1 text-sm">
+                  <li>The brain quickly checks rewards, risks and past experiences.</li>
+                  <li>
+                    Emotions give each option a value (good / bad / dangerous / exciting) and guide our
+                    choice.
+                  </li>
+                  <li>
+                    Wise decisions blend emotion and thinking – not emotion alone and not logic alone.
+                  </li>
+                </ul>
+              </SectionCard>
+            </div>
+          </div>
+
+          {/* Managing emotions in daily life */}
+          <div className="mb-6">
+            <SectionCard tone="violet" title="Managing strong emotions – simple steps">
+              <ol className="list-decimal pl-5 space-y-1 text-sm">
                 <li>
-                  Emotions give each option a value (good / bad / dangerous / exciting) and guide our
-                  choice.
+                  <span className="font-semibold">Pause</span> – notice the feeling; name it (e.g. “I
+                  feel angry and embarrassed”).
                 </li>
                 <li>
-                  Wise decisions blend emotion and thinking – not emotion alone and not logic alone.
+                  <span className="font-semibold">Breathe & ground</span> – slow breathing, short
+                  break, drink water.
+                </li>
+                <li>
+                  <span className="font-semibold">Think</span> – ask: what triggered this? what is the
+                  real problem? what outcome do I want?
+                </li>
+                <li>
+                  <span className="font-semibold">Choose a response</span> – speak calmly, ask for
+                  time, or use “I” statements instead of blaming.
+                </li>
+                <li>
+                  <span className="font-semibold">Reflect later</span> – what did I learn? what can I
+                  do differently next time?
+                </li>
+              </ol>
+            </SectionCard>
+          </div>
+
+          {/* EI at uni / work */}
+          <div className="mb-6">
+            <SectionCard tone="slate" title="Why EI matters for students and work">
+              <ul className="list-disc pl-5 space-y-1 text-sm">
+                <li>Helps in teamwork, conflict handling and customer service.</li>
+                <li>
+                  Supports leadership – understanding people, motivating them, and staying calm under
+                  pressure.
+                </li>
+                <li>
+                  Makes it easier to manage stress from exams, deadlines, internships and new
+                  environments.
                 </li>
               </ul>
             </SectionCard>
           </div>
 
-          {/* Managing emotions in daily life */}
-          <SectionCard tone="violet" title="Managing strong emotions – simple steps">
-            <ol className="list-decimal pl-5 space-y-1 text-sm">
-              <li>
-                <span className="font-semibold">Pause</span> – notice the feeling; name it (e.g. “I feel
-                angry and embarrassed”).
-              </li>
-              <li>
-                <span className="font-semibold">Breathe & ground</span> – slow breathing, short break,
-                drink water.
-              </li>
-              <li>
-                <span className="font-semibold">Think</span> – ask: what triggered this? what is the
-                real problem? what outcome do I want?
-              </li>
-              <li>
-                <span className="font-semibold">Choose a response</span> – speak calmly, ask for time,
-                or use “I” statements instead of blaming.
-              </li>
-              <li>
-                <span className="font-semibold">Reflect later</span> – what did I learn? what can I do
-                differently next time?
-              </li>
-            </ol>
-          </SectionCard>
-
-          {/* EI at uni / work */}
-          <SectionCard tone="slate" title="Why EI matters for students and work">
-            <ul className="list-disc pl-5 space-y-1 text-sm">
-              <li>Helps in teamwork, conflict handling and customer service.</li>
-              <li>
-                Supports leadership – understanding people, motivating them, and staying calm under
-                pressure.
-              </li>
-              <li>
-                Makes it easier to manage stress from exams, deadlines, internships and new
-                environments.
-              </li>
-            </ul>
-          </SectionCard>
-
           {/* Self-reflection */}
-          <SectionCard tone="emerald" title="My Self-Reflection (Chapter 08)">
-            <p className="text-sm">
-              This session helped me understand that emotions are not random; they follow patterns in
-              the brain and body. I realised that sometimes I react from emotion first and think later,
-              especially when I am stressed or feel criticised. From now on, I want to pause, name my
-              feelings and respond more calmly. I also plan to practise empathy by asking myself how the
-              other person might feel before I speak. Building emotional intelligence will help me work
-              better in teams, handle pressure during exams and be more prepared for future workplace
-              situations.
-            </p>
-          </SectionCard>
+          <div className="mb-2">
+            <SectionCard tone="emerald" title="My Self-Reflection (Chapter 08)">
+              <p className="text-sm">
+                This session helped me understand that emotions are not random; they follow patterns in
+                the brain and body. I realised that sometimes I react from emotion first and think
+                later, especially when I am stressed or feel criticised. From now on, I want to pause,
+                name my feelings and respond more calmly. I also plan to practise empathy by asking
+                myself how the other person might feel before I speak. Building emotional intelligence
+                will help me work better in teams, handle pressure during exams and be more prepared for
+                future workplace situations.
+              </p>
+            </SectionCard>
+          </div>
+
         </div>
       </div>
     </div>

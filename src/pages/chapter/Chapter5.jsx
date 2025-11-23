@@ -1,7 +1,25 @@
 import React from "react";
 
-// Importing the job image for the topic
-import MeetingImage from "../../assets/ch5/meetings.jpg"; // Adjust the path as necessary
+// Main round header image
+import MeetingImage from "../../assets/ch5/meetings.jpg";
+
+// Newly added images from your uploads
+import MeetingTerminologyImg from "../../assets/ch5/meeting_term.jpg";
+import MeetingTypesImg from "../../assets/ch5/Types_of_meetings.png";
+import FacilitationImg from "../../assets/ch5/Facilitation.jpg";
+import SpeakingImg from "../../assets/ch5/speecking.jpg";
+
+// Pastel chip colors — all different
+const chipColors = [
+  "bg-rose-50 text-rose-900 border-rose-200",
+  "bg-emerald-50 text-emerald-900 border-emerald-200",
+  "bg-cyan-50 text-cyan-900 border-cyan-200",
+  "bg-amber-50 text-amber-900 border-amber-200",
+  "bg-indigo-50 text-indigo-900 border-indigo-200",
+  "bg-lime-50 text-lime-900 border-lime-200",
+  "bg-fuchsia-50 text-fuchsia-900 border-fuchsia-200",
+  "bg-violet-50 text-violet-900 border-violet-200",
+];
 
 const chips = [
   "Meeting types",
@@ -14,27 +32,36 @@ const chips = [
   "Evaluation",
 ];
 
-function Chip({ label }) {
+function Chip({ label, index }) {
+  const color = chipColors[index % chipColors.length];
+
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium border-emerald-200 bg-emerald-50 text-emerald-900">
-      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+    <span
+      className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium border ${color}
+      shadow-[4px_4px_8px_rgba(0,0,0,0.12),-4px_-4px_8px_rgba(255,255,255,0.9)]
+      hover:shadow-[6px_6px_12px_rgba(0,0,0,0.15),-6px_-6px_12px_rgba(255,255,255,1)]
+      transition-all`}
+    >
+      <span className="h-2 w-2 rounded-full bg-current shadow-[2px_2px_4px_rgba(0,0,0,0.2),-2px_-2px_4px_rgba(255,255,255,0.9)]" />
       {label}
     </span>
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 function SectionCard({ title, tone = "emerald", children }) {
-  const tones = {
-    emerald: { wrap: "border-emerald-200 bg-emerald-50/70", title: "text-emerald-900" },
-    cyan: { wrap: "border-cyan-200 bg-cyan-50/70", title: "text-cyan-900" },
-    amber: { wrap: "border-amber-200 bg-amber-50/70", title: "text-amber-900" },
-    slate: { wrap: "border-slate-200 bg-white", title: "text-slate-900" },
-    violet: { wrap: "border-violet-200 bg-violet-50/70", title: "text-violet-900" },
-  };
-  const t = tones[tone] || tones.slate;
   return (
-    <div className={`rounded-2xl border ${t.wrap} p-5 md:p-6`}>
-      <h3 className={`text-lg md:text-xl font-bold mb-3 ${t.title}`}>{title}</h3>
+    <div
+      className="
+      my-5 p-6 rounded-3xl
+      bg-[#f6f8fa]
+      border border-white/60
+      shadow-[6px_6px_12px_rgba(0,0,0,0.12),-6px_-6px_12px_#ffffff]
+      hover:-translate-y-1 hover:shadow-[10px_10px_20px_rgba(0,0,0,0.15),-10px_-10px_20px_#ffffff]
+      transition-all duration-300
+    "
+    >
+      <h3 className="text-lg md:text-xl font-bold mb-3 text-slate-800">{title}</h3>
       <div className="text-slate-700 leading-7 text-sm md:text-base">{children}</div>
     </div>
   );
@@ -44,86 +71,101 @@ export default function Chapter5Section() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-white to-emerald-50 px-3 py-8 md:py-10">
       <div className="relative max-w-5xl mx-auto">
-        {/* Decorative 3D blobs behind card */}
+
+        {/* Blobs */}
         <div className="pointer-events-none absolute -top-10 -left-6 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-200 to-sky-200 opacity-60 blur-sm" />
         <div className="pointer-events-none absolute -bottom-12 -right-10 h-40 w-40 rounded-full bg-gradient-to-tr from-indigo-200 to-fuchsia-200 opacity-60 blur-sm" />
 
         {/* Main content card */}
-        <div className="relative bg-white bg-opacity-95 rounded-3xl shadow-2xl px-4 py-8 md:px-8 md:py-10">
+        <div className="relative bg-white/95 rounded-3xl shadow-2xl px-4 py-8 md:px-8 md:py-10">
+
           {/* Header */}
           <header className="mb-6 md:mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <p className="text-xs uppercase tracking-wide text-slate-500">Chapter 05</p>
-              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Meetings & Speaking Skills</h1>
-              <p className="mt-2 text-slate-600">Plan, run, and participate in meetings with clear language, good roles, and focused agendas.</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {chips.map((c) => (
-                  <Chip key={c} label={c} />
+              <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
+                Meetings & Speaking Skills
+              </h1>
+              <p className="mt-2 text-slate-600">
+                Plan, run, and participate in meetings with clear language, good roles, and focused agendas.
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-3">
+                {chips.map((c, i) => (
+                  <Chip key={i} label={c} index={i} />
                 ))}
               </div>
             </div>
 
-            {/* Round Topic Image */}
+            {/* Round header image */}
             <div className="flex justify-center md:justify-end">
-              <div className="relative h-28 w-28 md:h-36 md:w-36 transform hover:-translate-y-1 hover:rotate-1 transition duration-300">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-200 via-sky-200 to-cyan-300 shadow-lg" />
+              <div
+                className="relative h-28 w-28 md:h-36 md:w-36
+                rounded-full shadow-[6px_6px_12px_rgba(0,0,0,0.15),-6px_-6px_12px_rgba(255,255,255,1)]
+                hover:shadow-[10px_10px_20px_rgba(0,0,0,0.2),-10px_-10px_20px_rgba(255,255,255,1)]
+                transition"
+              >
                 <img
-                  src={MeetingImage} // Imported meeting image
+                  src={MeetingImage}
                   alt="Meeting Image"
-                  className="relative h-full w-full rounded-full object-cover border-4 border-white shadow-xl"
+                  className="h-full w-full rounded-full object-cover border-4 border-white"
                 />
               </div>
             </div>
           </header>
 
           {/* Terminology + Types */}
-          <div className="grid md:grid-cols-2 gap-4 mb-6">
-            <SectionCard tone="cyan" title="Meeting terminology (quick)">
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="Meeting terminology (quick)">
+              <img src={MeetingTerminologyImg} className="rounded-xl w-full mb-3 shadow" />
               <ul className="list-disc pl-5 space-y-1">
                 <li><span className="font-semibold">Agenda</span> – list of topics and timing.</li>
-                <li><span className="font-semibold">Minutes</span> – written record of decisions and actions.</li>
-                <li><span className="font-semibold">Action item</span> – task with owner and due date.</li>
-                <li><span className="font-semibold">Quorum</span> – minimum people needed to make decisions.</li>
+                <li><span className="font-semibold">Minutes</span> – record of decisions and actions.</li>
+                <li><span className="font-semibold">Action item</span> – task with owner + due date.</li>
+                <li><span className="font-semibold">Quorum</span> – minimum people needed to decide.</li>
               </ul>
             </SectionCard>
-            <SectionCard tone="emerald" title="Types of meetings (examples)">
+
+            <SectionCard title="Types of meetings (examples)">
+              <img src={MeetingTypesImg} className="rounded-xl w-full mb-3 shadow" />
               <ul className="list-disc pl-5 space-y-1">
-                <li>Stand‑up / progress update</li>
+                <li>Stand-up / progress update</li>
                 <li>Planning / strategy</li>
-                <li>Problem‑solving / retrospective</li>
+                <li>Problem-solving / retrospective</li>
                 <li>Training / briefing</li>
               </ul>
             </SectionCard>
           </div>
 
           {/* Preparation */}
-          <SectionCard tone="amber" title="Meeting preparation checklist">
+          <SectionCard title="Meeting preparation checklist">
             <ul className="list-disc pl-5 space-y-1">
               <li>Purpose and desired outcome (decision? info? brainstorm?).</li>
               <li>Who should attend (stakeholders/roles)?</li>
               <li>Date, time, location/online link; facilities needed.</li>
-              <li>Length and format: formal or informal.</li>
-              <li>Papers to prepare: invitation, agenda, previous minutes, working docs.</li>
-              <li>Risks/problems that could occur; how to prevent them.</li>
+              <li>Format + length: formal or informal.</li>
+              <li>Documents: invitation, agenda, minutes, working papers.</li>
+              <li>Risks/problems that may occur + prevention.</li>
             </ul>
           </SectionCard>
 
-          {/* Roles & Agenda */}
-          <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard title="Common roles in a meeting" tone="slate">
+          {/* Roles + Agenda */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="Common roles in a meeting">
               <ul className="list-disc pl-5 space-y-1">
                 <li>Chair/Facilitator – keeps focus, manages time, invites voices.</li>
-                <li>Secretary/Minute‑taker – records decisions and actions.</li>
-                <li>Timekeeper – tracks timings on the agenda.</li>
-                <li>Participants – contribute ideas, stay on topic, own actions.</li>
-                <li>Observer (optional) – gives feedback on process.</li>
+                <li>Secretary/Minute-taker – records decisions + actions.</li>
+                <li>Timekeeper – tracks agenda timings.</li>
+                <li>Participants – contribute ideas and stay on topic.</li>
+                <li>Observer – optional feedback role.</li>
               </ul>
             </SectionCard>
-            <SectionCard title="Sample agenda: project progress" tone="emerald">
+
+            <SectionCard title="Sample agenda: project progress">
               <ol className="list-decimal pl-5 space-y-1">
                 <li>Welcome & objectives (2 min)</li>
-                <li>Since last meeting: actions closed/open (5 min)</li>
-                <li>Team updates: Dev · QA · Design (10 min)</li>
+                <li>Last meeting: actions closed/open (5 min)</li>
+                <li>Team updates (10 min)</li>
                 <li>Risks & blockers (5 min)</li>
                 <li>Decisions & new actions (5 min)</li>
                 <li>Next steps & date (3 min)</li>
@@ -131,65 +173,74 @@ export default function Chapter5Section() {
             </SectionCard>
           </div>
 
-          {/* Facilitation & Participation */}
-          <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard title="Facilitation – keep people engaged" tone="violet">
+          {/* Facilitation + Speaking */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="Facilitation – keep people engaged">
+              <img src={FacilitationImg} className="rounded-xl w-full mb-3 shadow" />
               <ul className="list-disc pl-5 space-y-1">
-                <li>Set clear objective and timeboxes; park off‑topic items.</li>
-                <li>Invite quieter members; rotate who speaks.</li>
-                <li>Summarize often; confirm decisions and owners.</li>
+                <li>Set clear objective + timeboxes; park off-topic ideas.</li>
+                <li>Invite quieter members; rotate speakers.</li>
+                <li>Summarize often; confirm decisions & owners.</li>
               </ul>
             </SectionCard>
-            <SectionCard title="Speaking skills in meetings" tone="emerald">
+
+            <SectionCard title="Speaking skills in meetings">
+              <img src={SpeakingImg} className="rounded-xl w-full mb-3 shadow" />
               <ul className="list-disc pl-5 space-y-1">
-                <li>Be clear and concise; use polite phrases ("Could I add…", "I agree because…").</li>
-                <li>Active listening: pay attention, paraphrase, ask clarifying questions.</li>
-                <li>Use neutral, professional tone; avoid interrupting.</li>
+                <li>Be clear + concise; use polite phrases (“Could I add…?”).</li>
+                <li>Active listening: paraphrase, clarify, avoid interrupting.</li>
+                <li>Use neutral professional tone; stay respectful.</li>
               </ul>
             </SectionCard>
           </div>
 
-          {/* Challenges & fixes */}
-          <SectionCard tone="cyan" title="Common challenges → fixes">
+          {/* Challenges */}
+          <SectionCard title="Common challenges → fixes">
             <ul className="list-disc pl-5 space-y-1">
-              <li><span className="font-semibold">Low participation</span> → round‑robin sharing; direct gentle invites.</li>
-              <li><span className="font-semibold">Time overruns</span> → strict timekeeper; parking lot for later.</li>
-              <li><span className="font-semibold">Off‑topic debates</span> → restate objective; summarize and move.</li>
+              <li><span className="font-semibold">Low participation</span> → gentle invites + round-robin.</li>
+              <li><span className="font-semibold">Time overruns</span> → strict timekeeper + parking lot.</li>
+              <li><span className="font-semibold">Off-topic debates</span> → restate objective + move on.</li>
             </ul>
           </SectionCard>
 
           {/* Evaluation */}
-          <SectionCard tone="slate" title="Evaluate the meeting (simple form)">
+          <SectionCard title="Evaluate the meeting (simple form)">
             <ul className="list-disc pl-5 space-y-1 text-sm">
               <li>Objectives met? (1–5)</li>
               <li>Everyone had chance to speak? (Yes/No)</li>
-              <li>Next steps and owners clear? (Yes/No)</li>
-              <li>What to improve next time?</li>
+              <li>Next steps & owners clear? (Yes/No)</li>
+              <li>Improvements for next time?</li>
             </ul>
           </SectionCard>
 
-          {/* Class / Group activities */}
-          <div className="grid md:grid-cols-2 gap-4 my-6">
-            <SectionCard title="Group activity – roles & agenda" tone="amber">
+          {/* Activities */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <SectionCard title="Group activity – roles & agenda">
               <ol className="list-decimal pl-5 space-y-1 text-sm">
-                <li>List 3–4 meeting types and 2 objectives for each.</li>
-                <li>Pick roles for your group and write responsibilities.</li>
-                <li>Create a 6‑item agenda for a progress meeting.</li>
+                <li>List 3–4 meeting types + objectives.</li>
+                <li>Assign group roles + responsibilities.</li>
+                <li>Create a 6-item progress meeting agenda.</li>
               </ol>
             </SectionCard>
-            <SectionCard title="Facilitation & challenges" tone="amber">
+
+            <SectionCard title="Facilitation & challenges">
               <ol className="list-decimal pl-5 space-y-1 text-sm">
-                <li>Write 3 strategies to increase participation.</li>
-                <li>Explain why time management matters; give an example.</li>
-                <li>List 3 common challenges and give a fix for each.</li>
+                <li>Write 3 ways to increase participation.</li>
+                <li>Explain importance of time management.</li>
+                <li>Give 3 challenges + fixes.</li>
               </ol>
             </SectionCard>
           </div>
 
-          {/* Self‑Reflection */}
-          <SectionCard tone="emerald" title="My Self‑Reflection (Chapter 05)">
-            <p>I practiced how to plan a meeting and speak clearly. Next time I will prepare a short agenda, invite quieter members, and end with actions and owners. I will also use a quick evaluation form to improve our meetings.</p>
+          {/* Reflection */}
+          <SectionCard title="My Self-Reflection (Chapter 05)">
+            <p>
+              I practiced how to plan a meeting and speak clearly. Next time I will prepare a short agenda,
+              invite quieter members, and end with actions and owners. I will use an evaluation form to
+              improve our meetings.
+            </p>
           </SectionCard>
+
         </div>
       </div>
     </div>
