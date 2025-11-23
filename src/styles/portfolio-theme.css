@@ -1,0 +1,82 @@
+/* Beige background */
+body {
+  background-color: #f7f2e8;
+  background-image: url("/textures/light-paper.png");
+  background-size: cover;
+  background-repeat: repeat;
+  color: #222;
+  font-family: "Inter", sans-serif;
+}
+
+/* X Accent */
+.x-accent::after {
+  content: "xxxxxxx";
+  letter-spacing: 6px;
+  color: #111;
+  font-weight: 600;
+}
+
+/* Light grunge corners */
+.corner-decor {
+  position: relative;
+}
+.corner-decor::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  background: url("/textures/grunge-corner.png") no-repeat;
+  opacity: 0.25;
+}
+.corner-decor::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 60px;
+  height: 60px;
+  background: url("/textures/grunge-corner.png") no-repeat;
+  transform: rotate(180deg);
+  opacity: 0.25;
+}
+
+/* Card style */
+.beige-card {
+  background: #fcf9f3;
+  border: 1px solid #e3dfd5;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Title */
+.beige-title {
+  font-weight: 800;
+  font-size: 2rem;
+  color: #111;
+  letter-spacing: 1px;
+}
+
+/* Sidebar */
+.sidebar-item {
+  border: 1px solid #dfd8c8;
+  background: #fcf9f3;
+  border-radius: 50px;
+  transition: 0.2s ease;
+}
+.sidebar-item-active {
+  background: #f3e9d3;
+  border-color: #c2b8aa;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Motion fade */
+.fade-in {
+  animation: fadein 0.7s ease forwards;
+  opacity: 0;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

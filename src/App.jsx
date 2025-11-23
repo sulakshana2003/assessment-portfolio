@@ -27,8 +27,8 @@ export default function AssessmentPortfolio() {
       { id: "ch7", title: "Emotional Intelligence" },
       { id: "ch8", title: "Interview Preparation" },
       { id: "ch9", title: "CV & Cover Letter" },
-      /* { id: "ch10", title: "Dining & Business Etiquette" },
-      { id: "ch11", title: "Research Writing" }, */
+      { id: "ch10", title: "Dining & Business Etiquette" },
+      { id: "ch11", title: "Research Writing" },
     ],
     []
   );
@@ -155,8 +155,8 @@ export default function AssessmentPortfolio() {
                 {c.id === "ch7" && <Chapter7Section />}
                 {c.id === "ch8" && <Chapter8Section />}
                 {c.id === "ch9" && <Chapter9Section />}
-                {/* {c.id === "ch10" && <Chapter10Section />}
-                {c.id === "ch11" && <Chapter11Section />} */}
+                {c.id === "ch10" && <Chapter10Section />}
+                {c.id === "ch11" && <Chapter11Section />}
               </div>
             );
           })}
