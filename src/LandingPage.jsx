@@ -16,7 +16,10 @@ import img11 from "./assets/ch8/emotional_intelligence.jpg";
 import img12 from "./assets/ch9/napkin.jpg";
 
 export default function LandingPage() {
-  const galleryImages = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12];
+  const galleryImages = [
+    img1, img2, img3, img4, img5, img6,
+    img7, img8, img9, img10, img11, img12
+  ];
 
   const chapters = [
     "Introduction to Professional Skills",
@@ -33,15 +36,16 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white text-gray-800">
 
-      {/* ======================= MINIMAL HERO SECTION ======================= */}
-      <section className="h-[80vh] flex flex-col justify-center items-end pr-6 sm:pr-16 md:pr-32 bg-white relative">
+      {/* ======================= FULL SCREEN HERO ======================= */}
+      <section className="h-screen flex flex-col justify-center items-end pr-6 sm:pr-16 md:pr-32 bg-white relative select-none">
+
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="text-right"
         >
-          {/* Small Identity Block */}
+          {/* Identity Block */}
           <div className="text-sm text-gray-600 font-medium mb-3">
             <p className="font-semibold text-gray-800">Sulakshana Kalugamage</p>
             <p className="text-gray-500">Sa24610048</p>
@@ -49,7 +53,7 @@ export default function LandingPage() {
             <p className="text-gray-500">{new Date().getFullYear()}</p>
           </div>
 
-          {/* Big Bold Typography */}
+          {/* Main Title */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -60,7 +64,7 @@ export default function LandingPage() {
           </motion.h1>
         </motion.div>
 
-        {/* Minimal Buttons */}
+        {/* Buttons */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -79,9 +83,20 @@ export default function LandingPage() {
             </button>
           </a>
         </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 text-gray-500 text-sm flex flex-col items-center"
+        >
+          <span className="mb-1 tracking-widest">Scroll</span>
+          <div className="h-6 w-[2px] bg-gray-400 animate-pulse"></div>
+        </motion.div>
       </section>
 
-      {/* ======================= PORTFOLIO HIGHLIGHTS GALLERY ======================= */}
+      {/* ======================= PORTFOLIO GALLERY ======================= */}
       <section className="max-w-6xl mx-auto px-6 pb-20 mt-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-10">Portfolio Highlights</h2>
 
@@ -102,7 +117,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ======================= CHAPTER FEATURE CARDS ======================= */}
+      {/* ======================= CHAPTER LIST ======================= */}
       <section id="chapters" className="max-w-6xl mx-auto px-6 pb-28 mt-10">
         <h2 className="text-3xl font-bold text-gray-900 text-left">Explore All Chapters</h2>
 
