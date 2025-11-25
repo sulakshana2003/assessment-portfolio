@@ -18,7 +18,7 @@ import img11 from "./assets/ch8/emotional_intelligence.jpg";
 export default function LandingPage() {
   const galleryImages = [
     img1, img2, img3, img4, img5, img6,
-    img7, img8, img9, img10, img11, img12
+    img7, img8, img9, img10, img11
   ];
 
   const chapters = [
