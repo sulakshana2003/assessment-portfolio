@@ -13,7 +13,7 @@ import img8 from "./assets/ch6/Activity_plan.jpg";
 import img9 from "./assets/F2.jpeg";
 import img10 from "./assets/F5.jpeg";
 import img11 from "./assets/ch8/emotional_intelligence.jpg";
-import img12 from "./assets/ch9/napkin.jpg";
+import img12 from "./assets/ch9/Napkin.jpg";
 
 export default function LandingPage() {
   const galleryImages = [
