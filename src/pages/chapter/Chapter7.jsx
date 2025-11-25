@@ -80,13 +80,13 @@ export default function Chapter7Section() {
   const [index, setIndex] = useState(0);
 
   const photos = [
-    { src: F1, alt: "Ralahami Kade stall front" },
-    { src: F2, alt: "Team preparing the stall" },
+    { src: F1, alt: "Team preparing the stall" },
+    { src: F2, alt: "Team group photo" },
     { src: F3, alt: "Group selfie at the stall" },
     { src: F4, alt: "Serving customers" },
-    { src: F5, alt: "Crowd around the stall" },
-    { src: F6, alt: "Team with flyers and cash" },
-    { src: F11, alt: "Team group photo" },
+    { src: F5, alt: "Last moment of our festival" },
+    { src: F6, alt: "Team with Happy faces" },
+    { src: F11, alt: "Ralahami Kade stall front" },
     { src: F7, alt: "Busy time at counter" },
     { src: F10, alt: "Ralahami Kade table close-up" },
   ];
@@ -170,20 +170,38 @@ export default function Chapter7Section() {
             </SectionCard>
           </div>
 
-          {/* GALLERY */}
+          {/* MODERN MASONRY GALLERY */}
           <SectionCard tone="slate" title="Photo Gallery">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="columns-2 md:columns-3 gap-3 space-y-3">
               {photos.map((p, i) => (
                 <button
                   key={i}
-                  className="group relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100"
                   onClick={() => openLightbox(i)}
+                  className="
+                    relative w-full overflow-hidden rounded-2xl shadow-md
+                    transition-all duration-300 hover:scale-[1.03] hover:shadow-xl
+                  "
                 >
-                  <img src={p.src} alt={p.alt} className="h-40 md:h-48 w-full object-cover" />
-                  <span className="absolute inset-0 hidden group-hover:flex items-center justify-center 
-                    bg-black/30 text-white text-sm">
-                    Click to view
-                  </span>
+                  <img
+                    src={p.src}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="w-full object-cover rounded-2xl"
+                  />
+
+                  {/* GLASS CAPTION */}
+                  <div
+                    className="
+                      absolute inset-0 flex items-end opacity-0
+                      hover:opacity-100 transition-opacity duration-300
+                      bg-gradient-to-t from-black/60 to-transparent 
+                      rounded-2xl
+                    "
+                  >
+                    <span className="text-white text-xs md:text-sm font-semibold p-3">
+                      {p.alt}
+                    </span>
+                  </div>
                 </button>
               ))}
             </div>
