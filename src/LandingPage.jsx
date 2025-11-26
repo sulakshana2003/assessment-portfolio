@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -26,11 +27,11 @@ export default function LandingPage() {
     "CV & Cover Letter Writing",
     "Job Hunting & Interview Skills",
     "Portfolio Management",
-    "Meetings & Speaking Skills",
+    "Research Paper Writing",
     "Project Proposal Writing & Evaluation",
     "Food Festival — Ralahami Kadé",
     "Emotional Intelligence",
-    "Dining Etiquette & Table Manners"
+    "Dining Etiquette & Table Manners",
   ];
 
   return (
