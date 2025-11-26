@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -23,7 +24,7 @@ export default function AssessmentPortfolio() {
       { id: "ch2", title: "CV & Cover Letter Writing" },
       { id: "ch3", title: "Job Hunting & Interview Skills" },
       { id: "ch4", title: "Portfolio Management" },
-      { id: "ch5", title: "Meetings & Speaking Skills" },
+      { id: "ch5", title: "Research Paper Writing" },
       { id: "ch6", title: "Project Proposal Writing & Evaluation" },
       { id: "ch7", title: "Food Festival – Ralahami Kadé" },
       { id: "ch8", title: "Emotional Intelligence" },
